@@ -73,6 +73,7 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>product-store</finalName>
     </build>
 
 </project>
