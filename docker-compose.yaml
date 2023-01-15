@@ -1,8 +1,7 @@
 version: '3'
 services:
     backend-app:
-        build:
-          dockerfile: Dockerfile
+        image:mato11231/store-backend
         ports:
           - 8080:8080
         environment:
