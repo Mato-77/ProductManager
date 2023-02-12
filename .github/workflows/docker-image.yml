@@ -44,9 +44,13 @@ jobs:
 
     steps:
       -
-        name: Convert docker-compose.yaml to Helm charts
+        name: Install kompose
         run: |
-          helmfile convert
+          sudo apt-get update
+          sudo apt-get install kompose
+      -
+        name: Convert docker-compose.yaml to Helm Charts
+        run: kompose convert
       -
         name: Check in Helm charts
         uses: actions/checkout@v2
@@ -54,6 +58,6 @@ jobs:
           ref: master
           path: charts
 
-     
-       
+
+
 
