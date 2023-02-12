@@ -51,7 +51,7 @@ jobs:
       - 
         name: Deploy chart
         run: |
-          helm repo index --url https://github.com/Mato-77/ProductManager
+          helm repo index charts --url https://github.com/Mato-77/ProductManager
 
 
 
