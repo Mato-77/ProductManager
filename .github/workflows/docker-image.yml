@@ -28,7 +28,7 @@ jobs:
           curl -o docker-compose.yaml https://github.com/Mato-77/ProductManager/blob/master/docker-compose.yaml
       -
         name: Convert docker-compose.yaml to Helm Charts
-        run: kompose convert -f docker-compose.yaml --verbose
+        run: kompose convert
       -
         name: Check in Helm charts
         uses: actions/checkout@v2
