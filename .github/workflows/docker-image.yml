@@ -47,6 +47,12 @@ jobs:
         name: Package Helm chart
         run: |
           helm package chart-product
+      - 
+        name: Git clone
+        run: |
+          git clone https://github.com/Mato-77/ProductManager
+          cd ProductManager
+      
       -
         name: Create directory charts
         run: |
@@ -60,10 +66,7 @@ jobs:
         run: |
          cd charts
          ls 
-      - 
-        name: Git clone
-        run: |
-          git clone https://github.com/Mato-77/ProductManager
+      
       - 
         name: Deploy chart
         run: |
@@ -73,7 +76,6 @@ jobs:
         run: |
           git add .
           git commit -av
-          git pull origin master
           git push origin master
 
 
