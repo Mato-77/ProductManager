@@ -31,17 +31,22 @@ jobs:
         run: | 
           kompose convert
       -
-        name: Check in Helm charts
-        uses: actions/checkout@v2
-        with:
-          ref: master
-          path: charts
-      -
-        name: Publish Helm charts
-        uses: actions/upload-artifact@v2
-        with:
-          name: charts
-          path: charts
+        name: Create Helm chart
+        run: |
+          helm create chart-product
+      - 
+        name: Copy Kubernetes manifests to templates directory
+        run: |
+          cp -R manifests chart-product/templates
+      - 
+        name: Package Helm chart
+        run: |
+          helm package chart-product
+
+      - 
+        name: Deploy chart
+        run: |
+          helm install chart-product
 
 
 
