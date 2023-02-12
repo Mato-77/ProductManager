@@ -72,6 +72,7 @@ jobs:
         run: |
           cd ProductManager
           git config --global user.email "matonikolov77@yahoo.com"
+          git config --global user.name "Mato-77"
           git add .
           git commit -av
           git push origin master
