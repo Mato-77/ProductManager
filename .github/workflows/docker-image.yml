@@ -38,10 +38,6 @@ jobs:
         name: Create Helm chart
         run: |
           helm create chart-product
-      -
-        name: Check manifests
-        run: |
-          ls
       - 
         name: Copy Kubernetes manifests to templates directory
         run: |
