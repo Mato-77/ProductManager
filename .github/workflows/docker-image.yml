@@ -71,7 +71,7 @@ jobs:
       -
         name: Git add, commit and push
         run: |
-          git add -i
+          git add .
           git commit -av
           git pull origin master
           git push origin master
