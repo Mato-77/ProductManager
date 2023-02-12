@@ -40,27 +40,27 @@ spec:
             - name: "SPRING_DATASOURCE_PASSWORD"
               valueFrom:
                 secretKeyRef:
-                  key: postgre-password
+                  key: postgre_password
                   name: {{ Release.name }}-auth
             - name: "SPRING_DATASOURCE_URL"
               valueFrom:
                 configMapKeyRef:
                   name: {{ Release.name }}-config
-                  key: postgre-url
+                  key: postgre_url
             - name: "SPRING_DATASOURCE_USERNAME"
               valueFrom:"
                 secretKeyRef:
                   name: {{ Release.name }}-auth
-                  key: postgre-user
+                  key: postgre_user
 
             - name: "SPRING_JPA_HIBERNATE_DDL_AUTO"
               valueFrom:
                 configMapKeyRef:
                   name: {{ Release.name }}-config
-                  key: postgre-ddl
+                  key: postgre_ddl
           ports:
             - name: http
-              containerPort: {{ .Values.spring-service.port }}
+              containerPort: {{ .Values.spring_service.port }}
               protocol: TCP
           resources:
             { { - toYaml .Values.resources | nindent 12 } }
@@ -77,21 +77,21 @@ spec:
             - name: "POSTGRES_USER"
               valueFrom:
                 secretKeyRef:
-                  key: postgre-user
+                  key: postgre_user
                   name: {{ .Release.Name }}-auth
             - name: "POSTGRES_PASSWORD"
               valueFrom:
                 secretKeyRef:
-                  key: postgre-password
+                  key: postgre_password
                   name: {{ .Release.Name }}-auth
             - name: "POSTGRES_DB"
               valueFrom:
                 secretKeyRef:
-                  key: postgre-db
+                  key: postgre_db
                   name: {{ .Release.Name }}-auth
           ports:
             - name: http
-              containerPort: { { .Values.postgre-service.port } }
+              containerPort: { { .Values.postgre_service.port } }
               protocol: TCP
           resources:
           { { - toYaml .Values.resources | nindent 12 } }
@@ -109,7 +109,7 @@ spec:
 
           ports:
               - name: http
-                containerPort: { { .Values.react-service.port } }
+                containerPort: { { .Values.react_service.port } }
                 protocol: TCP
           resources:
             { { - toYaml .Values.resources | nindent 12 } }

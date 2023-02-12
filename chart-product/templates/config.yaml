@@ -3,6 +3,6 @@ kind: ConfigMap
 metadata:
   name:  {{ Release.Name }}-config
 data:
-  postgre-url: {{ .Values.configs.postgre-url }}
-  postgre-ddl: {{ .Values.configs.postgre-ddl }}
-  backend-url: {{ .Values.configs.backend-url }}
+  postgre_url: {{ .Values.configs.postgre_url }}
+  postgre_ddl: {{ .Values.configs.postgre_ddl }}
+  backend_url: {{ .Values.configs.backend_url }}

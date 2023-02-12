@@ -48,15 +48,15 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
-spring-service:
+spring_service:
   type: ClusterIP
   port: 8080
 
-react-service:
+react_service:
   type: ClusterIP
   port: 3000
 
-postgre-service:
+postgre_service:
   type: ClusterIP
   port: 5432
 
@@ -103,13 +103,13 @@ tolerations: []
 affinity: {}
 
 secrets:
-  postgre-user: "ProektKII"
-  postgre-password: "mato"
-  postgre-db: "store"
+  postgre_user: "ProektKII"
+  postgre_password: "mato"
+  postgre_db: "store"
 
 configs:
-  backend-url: "localhost:8080"
-  postgre-url: "jdbc:postgresql://store-database/store?currentSchema=public"
-  postgre-ddl: "update"
+  backend_url: "localhost:8080"
+  postgre_url: "jdbc:postgre-ql://store-database/store?currentSchema=public"
+  postgre_ddl: "update"
 
 
