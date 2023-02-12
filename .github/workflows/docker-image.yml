@@ -26,7 +26,10 @@ jobs:
         name: Download docker-compose.yaml
         run: |
           curl -o docker-compose.yaml https://github.com/Mato-77/ProductManager/blob/master/docker-compose.yaml
-          ls
+      -
+        name: Check the file
+        run: |
+          cat docker-compose.yaml
       -
         name: Convert docker-compose.yaml to Helm Charts
         run: | 
