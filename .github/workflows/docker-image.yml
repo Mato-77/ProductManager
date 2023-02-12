@@ -51,7 +51,7 @@ jobs:
       - 
         name: Deploy chart
         run: |
-          helm install chart-product
+          helm install --name chart-product-release chart-product
 
 
 
