@@ -69,8 +69,8 @@ jobs:
       -
         name: Git add, commit and push
         run: |
-          cd ProductManager
           git clone https://${{ secrets.TOKEN_NAME }}@github.com/Mato-77/ProductManager.git
+          cd ProductManager
           git add .
           git commit -m "Added charts"
           git push origin master
