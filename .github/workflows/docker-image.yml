@@ -70,7 +70,7 @@ jobs:
         name: Git add, commit and push
         run: |
           cd ProductManager
-          git config --global user.email "matonikolov77@yahoo.com"
+          git clone https://${{ secrets.TOKEN_NAME }}@github.com/Mato-77/ProductManager.git
           git add .
           git commit -m "Added charts"
           git push origin master
