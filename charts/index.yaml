@@ -3,12 +3,12 @@ entries:
   chart-product:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-02-12T21:57:24.763649101Z"
+    created: "2023-02-12T21:57:37.734317249Z"
     description: A Helm chart for Kubernetes
-    digest: f563743138978af267e0d74798e2d17d2b5b7619d17b07c898973dc86dcd909e
+    digest: 59f7ccf286e5c0b437fa186831f949bdbd90a6348d19062189e0c108706dbcc3
     name: chart-product
     type: application
     urls:
     - https://github.com/Mato-77/ProductManager/chart-product-0.1.0.tgz
     version: 0.1.0
-generated: "2023-02-12T21:57:24.762957979Z"
+generated: "2023-02-12T21:57:37.733623047Z"
