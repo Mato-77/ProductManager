@@ -46,8 +46,9 @@ jobs:
       -
         name: Install kompose
         run: |
-          sudo apt-get update
-          sudo apt-get install kompose
+          wget https://github.com/kubernetes/kompose/releases/download/v1.21.0/kompose-linux-amd64
+          chmod +x kompose-linux-amd64
+          sudo mv kompose-linux-amd64 /usr/local/bin/kompose
       -
         name: Convert docker-compose.yaml to Helm Charts
         run: kompose convert
