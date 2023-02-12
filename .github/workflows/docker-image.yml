@@ -27,10 +27,6 @@ jobs:
         run: |
           curl -o docker-compose.yaml https://raw.githubusercontent.com/Mato-77/ProductManager/master/docker-compose.yaml
       -
-        name: Check the file
-        run: |
-          cat docker-compose.yaml
-      -
         name: Convert docker-compose.yaml to Helm Charts
         run: | 
           kompose convert
@@ -39,6 +35,12 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: master
+          path: charts
+      -
+        name: Publish Helm charts
+        uses: actions/upload-artifact@v2
+        with:
+          name: charts
           path: charts
 
 
