@@ -52,7 +52,7 @@ jobs:
         run: |
           git clone https://github.com/Mato-77/ProductManager
           cd ProductManager
-          git status
+          git branches
       
       -
         name: Create directory charts
