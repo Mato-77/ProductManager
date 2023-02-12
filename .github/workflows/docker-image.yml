@@ -25,7 +25,7 @@ jobs:
       -     
         name: Download docker-compose.yaml
         run: |
-          curl -o docker-compose.yaml https://github.com/Mato-77/ProductManager/blob/master/docker-compose.yaml
+          curl -o docker-compose.yaml https://raw.githubusercontent.com/Mato-77/ProductManager/master/docker-compose.yaml
       -
         name: Check the file
         run: |
