@@ -57,7 +57,7 @@ jobs:
       -
         name: Copy Kubernetes manifests to templates directory
         run: |
-          cp -R templates product-store-chart/templates
+          cp -R templates home/usr/product-store-chart/templates
 
       -
         name: Package Helm Chart
