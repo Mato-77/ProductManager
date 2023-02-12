@@ -15,6 +15,7 @@ jobs:
   helm-charts:
     name: Creating Helm Charts
     runs-on: ubuntu-latest
+
     steps:
       -
         name: Install kompose
@@ -50,7 +51,7 @@ jobs:
       - 
         name: Git clone
         run: |
-          git clone https://${{ TOKEN_NAME }}@github.com/Mato-77/ProductManager.git
+          git clone https://${{ secrets.TOKEN_NAME }}@github.com/Mato-77/ProductManager.git
           cd ProductManager
       -
         name: Create directory charts
