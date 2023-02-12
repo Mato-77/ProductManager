@@ -59,13 +59,18 @@ jobs:
         name: List packages and files
         run: |
          cd charts
-         ls
-         cd ..
- 
+         ls 
       - 
         name: Deploy chart
         run: |
           helm repo index charts --url https://github.com/Mato-77/ProductManager
+      -
+        name: Git add, commit and push
+        run: |
+          git add -i
+          git commit -av
+          git pull origin master
+          git push origin master
 
 
 
