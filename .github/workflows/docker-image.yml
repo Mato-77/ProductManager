@@ -70,6 +70,7 @@ jobs:
       -
         name: Git add, commit and push
         run: |
+          ls
           git status
           git add .
           git commit -av
