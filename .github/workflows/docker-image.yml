@@ -54,12 +54,12 @@ jobs:
       -
         name: Add Helm repo
         run: |
-          helm repo add chart-product oci://registry/namespace/chart-product
+          helm repo add artifacthub https://artifacthub.io/api/charts/mato
 
       - 
         name: Deploy chart
         run: |
-          helm push chart-name-*.tgz chart-product
+          helm push chart-product-0.1.0.tgz  https://artifacthub.io/api/charts/mato
 
 
 
