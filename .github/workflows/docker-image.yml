@@ -51,6 +51,10 @@ jobs:
         name: Move package to charts folder
         run: |
           mv chart-product-0.1.0.tgz charts
+      -
+        name: List packages and files
+        run: |
+          ls
  
       - 
         name: Deploy chart
