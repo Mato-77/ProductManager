@@ -22,6 +22,10 @@ jobs:
           curl -L https://github.com/kubernetes/kompose/releases/download/v1.28.0/kompose-linux-amd64 -o kompose
           chmod +x kompose
           sudo mv ./kompose /usr/local/bin/kompose
+      -     
+        name: Download docker-compose.yaml
+        run: |
+          curl -o docker-compose.yaml https://github.com/Mato-77/ProductManager/blob/master/docker-compose.yaml
       -
         name: Convert docker-compose.yaml to Helm Charts
         run: kompose convert
