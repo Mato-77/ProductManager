@@ -53,10 +53,10 @@ jobs:
         run: |
           git clone https://${{ secrets.TOKEN_NAME }}@github.com/Mato-77/ProductManager.git
           cd ProductManager
-      -
-        name: Create directory charts
-        run: |
-          mkdir  ProductManager/charts
+      #-
+        #name: Create directory charts
+        #run: |
+          #mkdir  ProductManager/charts
       -
         name: Move package to charts folder
         run: |
