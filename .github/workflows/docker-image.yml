@@ -27,9 +27,13 @@ jobs:
         run: |
           curl -o docker-compose.yaml https://raw.githubusercontent.com/Mato-77/ProductManager/master/docker-compose.yaml
       -
+        name: Create folder for  Kubernetes manifests
+        run: |
+          mkdir manifests
+      -
         name: Convert docker-compose.yaml to Helm Charts
         run: | 
-          kompose convert
+          kompose convert --output=manifests/
       -
         name: Create Helm chart
         run: |
