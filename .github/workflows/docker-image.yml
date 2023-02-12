@@ -47,6 +47,10 @@ jobs:
         name: Package Helm chart
         run: |
           helm package chart-product
+      -
+        name: Move package to charts folder
+        run: |
+          mv chart-product-0.1.0.tgz charts
  
       - 
         name: Deploy chart
