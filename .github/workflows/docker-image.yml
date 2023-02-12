@@ -47,19 +47,11 @@ jobs:
         name: Package Helm chart
         run: |
           helm package chart-product
-      - 
-        name: Check package chart name
-        run: |
-          ls
-      -
-        name: Add Helm repo
-        run: |
-          helm repo add artifacthub https://artifacthub.io/api/charts/mato
-
+ 
       - 
         name: Deploy chart
         run: |
-          helm push chart-product-0.1.0.tgz  https://artifacthub.io/api/charts/mato
+          helm repo index --url https://github.com/Mato-77/ProductManager
 
 
 
