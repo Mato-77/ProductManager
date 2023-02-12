@@ -1,0 +1,58 @@
+
+
+name: Pushing Docker Image, creating Helm Charts
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+
+
+  helm-charts:
+    name: Creating Helm Charts
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Install kompose
+        run: |          
+          curl -L https://github.com/kubernetes/kompose/releases/download/v1.28.0/kompose-linux-amd64 -o kompose
+          chmod +x kompose
+          sudo mv ./kompose /usr/local/bin/kompose
+      -     
+        name: Download docker-compose.yaml
+        run: |
+          curl -o docker-compose.yaml https://raw.githubusercontent.com/Mato-77/ProductManager/master/docker-compose.yaml
+      -
+        name: Create folder for  Kubernetes manifests
+        run: |
+          mkdir manifests
+      -
+        name: Convert docker-compose.yaml to Helm Charts
+        run: | 
+          kompose convert --out=manifests/
+      -
+        name: Create Helm chart
+        run: |
+          helm create chart-product
+      - 
+        name: Copy Kubernetes manifests to templates directory
+        run: |
+          cp -R manifests chart-product/templates
+
+      - 
+        name: Package Helm chart
+        run: |
+          helm package chart-product
+ 
+      - 
+        name: Deploy chart
+        run: |
+          helm repo index --url https://github.com/Mato-77/ProductManager
+
+
+
+
