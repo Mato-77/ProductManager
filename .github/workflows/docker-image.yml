@@ -57,11 +57,11 @@ jobs:
       -
         name: Create directory charts
         run: |
-          mkdir charts
+          mkdir  ProductManager/charts
       -
         name: Move package to charts folder
         run: |
-          mv chart-product-0.1.0.tgz charts
+          mv chart-product-0.1.0.tgz ProductManager/charts
       
       - 
         name: Deploy chart
@@ -70,7 +70,7 @@ jobs:
       -
         name: Git add, commit and push
         run: |
-          ls
+          cd ProductManager
           git status
           git add .
           git commit -av
