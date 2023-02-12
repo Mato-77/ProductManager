@@ -33,7 +33,7 @@ jobs:
       -
         name: Convert docker-compose.yaml to Helm Charts
         run: | 
-          kompose convert --output=manifests/
+          kompose convert --out=manifests/
       -
         name: Create Helm chart
         run: |
