@@ -70,6 +70,8 @@ jobs:
         name: Git add, commit and push
         run: |
           cd ProductManager
+          git config --global user.email "matonikolov77@yahoo.com"
+          git config --global user.name "Mato-77"
           git add .
           git commit -m "Added charts"
           git push origin master
