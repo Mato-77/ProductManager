@@ -47,11 +47,19 @@ jobs:
         name: Package Helm chart
         run: |
           helm package chart-product
+      - 
+        name: Check package chart name
+        run: |
+          ls
+      -
+        name: Add Helm repo
+        run: |
+          helm repo add chart-product oci://registry/namespace/chart-product
 
       - 
         name: Deploy chart
         run: |
-          helm install --name chart-product-release chart-product
+          helm push chart-name-*.tgz chart-product
 
 
 
