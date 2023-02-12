@@ -70,6 +70,7 @@ jobs:
       -
         name: Git add, commit and push
         run: |
+          git status
           git add .
           git commit -av
           git push origin master
