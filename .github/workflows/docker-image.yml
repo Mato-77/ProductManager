@@ -54,7 +54,9 @@ jobs:
       -
         name: List packages and files
         run: |
-          ls
+         cd charts
+         ls
+         cd ..
  
       - 
         name: Deploy chart
