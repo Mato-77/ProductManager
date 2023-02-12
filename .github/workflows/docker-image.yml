@@ -44,27 +44,16 @@ jobs:
 
     steps:
       -
-        name: Convert Docker Compose to Kubernetes manifests
+        name: Convert docker-compose.yaml to Helm charts
         run: |
-          curl -L https://github.com/kubernetes/kompose/releases/download/v1.28.0/kompose-linux-amd64 -o kompose
-          chmod +x kompose
-          sudo mv ./kompose /usr/local/bin/kompose
+          helmfile convert
       -
-        name: Create Helm Chart
-        run: |
-          helm create product-store-chart
+        name: Check in Helm charts
+        uses: actions/checkout@v2
+        with:
+          ref: master
+          path: charts
 
-      -
-        name: Copy Kubernetes manifests to templates directory
-        run: |
-          cp -R /usr/local/bin/kompose/templates product-store-chart/templates
-
-      -
-        name: Package Helm Chart
-        run: |
-          helm package chart-name
-      -
-        name: Deploy chart
-        run: |
-          helm install produst-store-chart.tgz
+     
+       
 
