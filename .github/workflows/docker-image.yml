@@ -38,6 +38,10 @@ jobs:
         name: Copy Kubernetes manifests to templates directory
         run: |
           cp -R manifests chart-product/templates
+      -
+        name: Check manifests
+        run: |
+          ls
       - 
         name: Package Helm chart
         run: |
