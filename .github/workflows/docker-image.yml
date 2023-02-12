@@ -48,6 +48,10 @@ jobs:
         run: |
           helm package chart-product
       -
+        name: Create directory charts
+        run: |
+          mkdir charts
+      -
         name: Move package to charts folder
         run: |
           mv chart-product-0.1.0.tgz charts
