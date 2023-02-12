@@ -61,6 +61,10 @@ jobs:
          cd charts
          ls 
       - 
+        name: Git clone
+        run: |
+          git clone https://github.com/Mato-77/ProductManager
+      - 
         name: Deploy chart
         run: |
           helm repo index charts --url https://github.com/Mato-77/ProductManager
