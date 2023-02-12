@@ -70,7 +70,6 @@ jobs:
         name: Git add, commit and push
         run: |
           cd ProductManager
-          git remote set-url origin git@github.com:Mato-77/ProductManager.git
           git add .
           git commit -m "Added charts"
           git push origin master
