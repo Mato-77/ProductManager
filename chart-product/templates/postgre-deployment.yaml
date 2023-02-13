@@ -1,30 +1,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: react-deployment
+  name: postgre-deployment
   labels:
-    app: {{ .Values.react.app }}
+    app: {{ .Values.postgre.app }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Values.react.app }}
+      app: {{ .Values.postgre.app }}
   template:
     metadata:
       labels:
-        app: {{ .Values.react.app }}
+        app: {{ .Values.postgre.app }}
     spec:
       containers:
-        - name: {{ .Values.react.containerName }}
-          image: "{{ .Values.react.repository }}:{{ .Values.react.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: { { .Values.react.pullPolicy } }
+        - name: {{ .Values.postgre.containerName }}
+          image: "{{ .Values.postgre.repository }}:{{ .Values.postgre.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{  .Values.postgre.pullPolicy }}
           ports:
             - name: http
-              containerPort: {{ .Values.react_service.port }}
+              containerPort: {{ .Values.postgre_service.port }}
               protocol: TCP
-        volumeMounts:
-          - name: volumes-chart-product-psql
-            mountPath: /var/lib/postgresql/data:delegated
+          volumeMounts:
+            - name: volumes-chart-product-psql
+              mountPath: /var/lib/postgresql/data:delegated
           env:
             - name: "POSTGRES_USER"
               valueFrom:
@@ -32,15 +32,15 @@ spec:
                   key: postgre_user
                   name: {{ .Release.Name }}secret
             - name: "POSTGRES_PASSWORD"
-            valueFrom:
-              secretKeyRef:
-                key: postgre_password
-                name: {{ .Release.Name }}secret
+              valueFrom:
+                secretKeyRef:
+                  key: postgre_password
+                  name: {{ .Release.Name }}secret
             - name: "POSTGRES_DB"
-            valueFrom:
-              secretKeyRef:
-                key: postgre_db
-                name: {{ .Release.Name }}secret
+              valueFrom:
+                secretKeyRef:
+                  key: postgre_db
+                  name: {{ .Release.Name }}secret
       volumes:
         - name: volumes-chart-product-psql
-            emptyDir: { }
+          emptyDir: { }

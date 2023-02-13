@@ -17,14 +17,14 @@ spec:
       containers:
         - name: {{ .Values.react.containerName }}
           image: "{{ .Values.react.repository }}:{{ .Values.react.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: { { .Values.spring.pullPolicy } }
+          imagePullPolicy: {{ .Values.react.pullPolicy }}
           ports:
             - name: http
               containerPort: {{ .Values.react_service.targetPort }}
               protocol: TCP
-        env:
-          - name: "REACT_APP_BACKEND_URL"
-            valueFrom:
-              configMapKeyRef:
-                name: {{ .Release.Name }}config
-                key: backend_url
+          env:
+            - name: "REACT_APP_BACKEND_URL"
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Release.Name }}config
+                  key: backend_url

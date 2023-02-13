@@ -40,10 +40,10 @@ spec:
                   key: postgre_password
                   name: {{ .Release.Name }}secret
             - name: "SPRING_DATASOURCE_URL"
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ .Release.Name }}config
-                  key: postgre_url
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}config
+                key: postgre_url
             - name: "SPRING_DATASOURCE_USERNAME"
               valueFrom:
                 secretKeyRef:
@@ -75,19 +75,19 @@ spec:
                   key: postgre_user
                   name: {{ .Release.Name }}secret
             - name: "POSTGRES_PASSWORD"
-              valueFrom:
-                secretKeyRef:
-                  key: postgre_password
-                  name: {{ .Release.Name }}secret
+            valueFrom:
+              secretKeyRef:
+                key: postgre_password
+                name: {{ .Release.Name }}secret
             - name: "POSTGRES_DB"
-              valueFrom:
-                secretKeyRef:
-                  key: postgre_db
-                  name: {{ .Release.Name }}secret
+            valueFrom:
+              secretKeyRef:
+                key: postgre_db
+                name: {{ .Release.Name }}secret
           ports:
-            - name: http
-              containerPort: {{ .Values.postgre_service.port }}
-              protocol: TCP
+              - name: http
+                containerPort: {{ .Values.postgre_service.port }}
+                protocol: TCP
           resources:
           {{- toYaml .Values.resources | nindent 12 }}
         - name: {{ .Values.react.containerName }}
@@ -101,9 +101,9 @@ spec:
                   key: backend_url
 
           ports:
-              - name: http
-                containerPort: {{ .Values.react_service.port }}
-                protocol: TCP
+            - name: http
+              containerPort: {{ .Values.react_service.port }}
+              protocol: TCP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
 

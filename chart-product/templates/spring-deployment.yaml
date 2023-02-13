@@ -17,22 +17,22 @@ spec:
       containers:
         - name: {{ .Values.spring.containerName }}
           image: "{{ .Values.spring.repository }}:{{ .Values.spring.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: { { .Values.spring.pullPolicy } }
+          imagePullPolicy: {{ .Values.spring.pullPolicy }}
           ports:
             - name: http
               containerPort: {{ .Values.spring_service.port }}
               protocol: TCP
-        env:
-          - name: "SPRING_DATASOURCE_PASSWORD"
-            valueFrom:
-              secretKeyRef:
-                key: postgre_password
-                name: {{ .Release.Name }}secret
-          - name: "SPRING_DATASOURCE_URL"
-          valueFrom:
-            configMapKeyRef:
-              name: {{ .Release.Name }}config
-              key: postgre_url
+          env:
+            - name: "SPRING_DATASOURCE_PASSWORD"
+              valueFrom:
+                secretKeyRef:
+                  key: postgre_password
+                  name: {{ .Release.Name }}secret
+            - name: "SPRING_DATASOURCE_URL"
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Release.Name }}config
+                  key: postgre_url
             - name: "SPRING_DATASOURCE_USERNAME"
               valueFrom:
                 secretKeyRef:
