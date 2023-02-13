@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-deployment
+  labels:
+    app: {{ .Values.spring.app }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.spring.app }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.spring.app }}
+    spec:
+      containers:
+        - name: {{ .Values.spring.containerName }}
+          image: "{{ .Values.spring.repository }}:{{ .Values.spring.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: { { .Values.spring.pullPolicy } }
+          ports:
+            - name: http
+              containerPort: {{ .Values.spring_service.port }}
+              protocol: TCP
+        env:
+          - name: "SPRING_DATASOURCE_PASSWORD"
+            valueFrom:
+              secretKeyRef:
+                key: postgre_password
+                name: {{ .Release.Name }}secret
+          - name: "SPRING_DATASOURCE_URL"
+          valueFrom:
+            configMapKeyRef:
+              name: {{ .Release.Name }}config
+              key: postgre_url
+            - name: "SPRING_DATASOURCE_USERNAME"
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}secret
+                  key: postgre_user
+
+            - name: "SPRING_JPA_HIBERNATE_DDL_AUTO"
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Release.Name }}config
+                  key: postgre_ddl

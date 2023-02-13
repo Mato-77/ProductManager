@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-deployment
+  labels:
+    app: {{ .Values.react.app }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.react.app }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.react.app }}
+    spec:
+      containers:
+        - name: {{ .Values.react.containerName }}
+          image: "{{ .Values.react.repository }}:{{ .Values.react.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: { { .Values.spring.pullPolicy } }
+          ports:
+            - name: http
+              containerPort: {{ .Values.react_service.targetPort }}
+              protocol: TCP
+        env:
+          - name: "REACT_APP_BACKEND_URL"
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}config
+                key: backend_url

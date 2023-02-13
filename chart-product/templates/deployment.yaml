@@ -1,14 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "chart-p.roduct.fullname" . }}
-  labels:.
+  name: {{ include "chart-product.fullname" . }}
+  labels:
     {{- include "chart-product.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
-  selector:.
+  selector:
     matchLabels:
       {{- include "chart-product.selectorLabels" . | nindent 6 }}
   template:
@@ -25,94 +25,87 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "chart-product.serviceAccountName" . }}
-      securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      securityContext: {{- toYaml .Values.securityContext | nindent 12 }}
       volumes:
-        - name: volumes-edt-psql
-            emptyDir: { }
-      containers:.
+        - name: volumes-chart-product-psql
+          emptyDir: {}
+      containers:
         - name: {{ .Values.spring.containerName }}
-          securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.spring.repository }}:{{ .Values.spring.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {.{ .Values.spring.pullPolicy }}
+          imagePullPolicy: {{ .Values.spring.pullPolicy }}
           env:
             - name: "SPRING_DATASOURCE_PASSWORD"
               valueFrom:
                 secretKeyRef:
-                  key: postg.re_password
-                  name: {{.Release.name }}-auth
+                  key: postgre_password
+                  name: {{ .Release.Name }}secret
             - name: "SPRING_DATASOURCE_URL"
               valueFrom:
                 configMapKeyRef:
-                  name: {{.Release.name }}-config
+                  name: {{ .Release.Name }}config
                   key: postgre_url
             - name: "SPRING_DATASOURCE_USERNAME"
-              valueFrom:"
+              valueFrom:
                 secretKeyRef:
-                  name: {{.Release.name }}-auth
+                  name: {{ .Release.Name }}secret
                   key: postgre_user
 
             - name: "SPRING_JPA_HIBERNATE_DDL_AUTO"
               valueFrom:
                 configMapKeyRef:
-                  name: {{ .Release.name }}-config
+                  name: {{ .Release.Name }}config
                   key: postgre_ddl
           ports:
             - name: http
               containerPort: {{ .Values.spring_service.port }}
               protocol: TCP
           resources:
-            { { - toYaml .Values.resources | nindent 12 } }
+            {{- toYaml .Values.resources | nindent 12 }}
 
         - name: {{ .Values.postgre.containerName }}
-          securityContext:
-            { { - toYaml .Values.securityContext | nindent 12 } }
           image:  "{{ .Values.postgre.repository }}:{{ .Values.postgre.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.postgre.pullPolicy }}
           volumeMounts:
-            - name: volumes-edt-psql
+            - name: volumes-chart-product-psql
               mountPath: /var/lib/postgresql/data:delegated
           env:
             - name: "POSTGRES_USER"
               valueFrom:
                 secretKeyRef:
                   key: postgre_user
-                  name: {{ .Release.Name }}-auth
+                  name: {{ .Release.Name }}secret
             - name: "POSTGRES_PASSWORD"
               valueFrom:
                 secretKeyRef:
                   key: postgre_password
-                  name: {{ .Release.Name }}-auth
+                  name: {{ .Release.Name }}secret
             - name: "POSTGRES_DB"
               valueFrom:
                 secretKeyRef:
                   key: postgre_db
-                  name: {{ .Release.Name }}-auth
+                  name: {{ .Release.Name }}secret
           ports:
             - name: http
-              containerPort: { { .Values.postgre_service.port } }
+              containerPort: {{ .Values.postgre_service.port }}
               protocol: TCP
           resources:
-          { { - toYaml .Values.resources | nindent 12 } }
-        - name: { { .Values.react.containerName } }
-          securityContext:
-            { { - toYaml .Values.securityContext | nindent 12 } }
+          {{- toYaml .Values.resources | nindent 12 }}
+        - name: {{ .Values.react.containerName }}
           image: "{{ .Values.react.repository }}:{{ .Values.react.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: { { .Values.react.pullPolicy } }
+          imagePullPolicy: {{ .Values.react.pullPolicy }}
           env:
             - name: "REACT_APP_BACKEND_URL"
               valueFrom:
                 configMapKeyRef:
-                  name:{{ .Release.Name }}-config
-                  key: backend-url
+                  name: {{ .Release.Name }}config
+                  key: backend_url
 
           ports:
               - name: http
-                containerPort: { { .Values.react_service.port } }
+                containerPort: {{ .Values.react_service.port }}
                 protocol: TCP
           resources:
-            { { - toYaml .Values.resources | nindent 12 } }
+            {{- toYaml .Values.resources | nindent 12 }}
 
       {{- with .Values.nodeSelector }}
       nodeSelector:

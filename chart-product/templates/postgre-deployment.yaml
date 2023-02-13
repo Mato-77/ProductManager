@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-deployment
+  labels:
+    app: {{ .Values.react.app }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.react.app }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.react.app }}
+    spec:
+      containers:
+        - name: {{ .Values.react.containerName }}
+          image: "{{ .Values.react.repository }}:{{ .Values.react.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: { { .Values.react.pullPolicy } }
+          ports:
+            - name: http
+              containerPort: {{ .Values.react_service.port }}
+              protocol: TCP
+        volumeMounts:
+          - name: volumes-chart-product-psql
+            mountPath: /var/lib/postgresql/data:delegated
+          env:
+            - name: "POSTGRES_USER"
+              valueFrom:
+                secretKeyRef:
+                  key: postgre_user
+                  name: {{ .Release.Name }}secret
+            - name: "POSTGRES_PASSWORD"
+            valueFrom:
+              secretKeyRef:
+                key: postgre_password
+                name: {{ .Release.Name }}secret
+            - name: "POSTGRES_DB"
+            valueFrom:
+              secretKeyRef:
+                key: postgre_db
+                name: {{ .Release.Name }}secret
+      volumes:
+        - name: volumes-chart-product-psql
+            emptyDir: { }

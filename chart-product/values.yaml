@@ -10,18 +10,24 @@ spring:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
   containerName: "spring"
+  app: "spring"
+  name: "spring"
 
 postgre:
   repository: postgres
   pullPolicy: Always
   tag: "13.2-alpine"
   containerName: "database"
+  name: "postgre"
+  app: "postgre"
 
 react:
   repository: mato11231/store-frontend
   pullPolicy: Always
   tag: "latest"
   containerName: "react"
+  name: "react"
+  app: "react"
 
 
 
@@ -52,13 +58,23 @@ spring_service:
   type: ClusterIP
   port: 8080
 
+
 react_service:
-  type: ClusterIP
+  type: NodePort
   port: 3000
+  targetPort: 3000
+  nodePort: 3007
+  selector:
+    app: react
+
 
 postgre_service:
   type: ClusterIP
   port: 5432
+
+service:
+  type: ClusterIP
+  port: 80
 
 
 ingress:
@@ -103,13 +119,13 @@ tolerations: []
 affinity: {}
 
 secrets:
-  postgre_user: "ProektKII"
-  postgre_password: "mato"
-  postgre_db: "store"
+  postgre_user: "UHJvZWt0S0lJCg=="
+  postgre_password: "bWF0bwo="
+  postgre_db: "c3RvcmU="
 
 configs:
-  backend_url: "localhost:8080"
-  postgre_url: "jdbc:postgre-ql://store-database/store?currentSchema=public"
+  backend_url: "react_service"
+  postgre_url: "jdbc:postgresql://postgre_service/store?currentSchema=public"
   postgre_ddl: "update"
 
 
