@@ -119,7 +119,8 @@ secrets:
   postgre_db: "c3RvcmU="
 
 configs:
-  backend_url: "spring-service:8080"
+#  backend_url: "spring-service:8080" - treba da raboti, no so dns ima problem, zatoa so port-forward
+  backend_url: "localhost:8080"
   postgre_url: "jdbc:postgresql://postgre-service:5000/store?currentSchema=public"
   postgre_ddl: "update"
 
