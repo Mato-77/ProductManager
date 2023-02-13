@@ -2,12 +2,14 @@ package com.example.productstore.service.impl;
 
 import com.example.productstore.model.Category;
 import com.example.productstore.model.dto.CategoryDTO;
+import com.example.productstore.model.dto.CategoryOrManufactureSaved;
 import com.example.productstore.repository.CategoryRepository;
 import com.example.productstore.repository.ProductCategoryRepository;
 import com.example.productstore.service.CategoryService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -31,5 +33,11 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<CategoryDTO> findAllCategoriesWithProducts() {
         return this.productCategoryRepository.findAllByGroupedCategories();
+    }
+
+    @Override
+    public Optional<CategoryOrManufactureSaved> saveCategory(String name) {
+        this.categoryRepository.save(new Category(name));
+        return Optional.of(new CategoryOrManufactureSaved(name));
     }
 }

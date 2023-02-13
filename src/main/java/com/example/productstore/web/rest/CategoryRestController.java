@@ -3,11 +3,10 @@ package com.example.productstore.web.rest;
 
 import com.example.productstore.model.Category;
 import com.example.productstore.model.dto.CategoryDTO;
+import com.example.productstore.model.dto.CategoryOrManufactureSaved;
 import com.example.productstore.service.CategoryService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,6 +29,16 @@ public class CategoryRestController {
     @GetMapping("/ordered")
     public List<CategoryDTO> getCategoriesOrdered(){
         return this.categoryService.findAllCategoriesWithProducts();
+    }
+
+    @PostMapping("/add")
+    @CrossOrigin(origins = "*",allowedHeaders = "*")
+    public ResponseEntity<CategoryOrManufactureSaved> addCategory(@RequestParam String name){
+
+        return this.categoryService
+                .saveCategory(name)
+                .map(product -> ResponseEntity.ok().body(product))
+                .orElseGet(() -> ResponseEntity.badRequest().build());
     }
 
 }
