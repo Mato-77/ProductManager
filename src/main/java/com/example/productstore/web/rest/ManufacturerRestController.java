@@ -32,10 +32,10 @@ public class ManufacturerRestController {
     }
     @PostMapping("/add")
     @CrossOrigin(origins = "*",allowedHeaders = "*")
-    public ResponseEntity<CategoryOrManufactureSaved> addManufacturer(@RequestParam String name){
+    public ResponseEntity<CategoryOrManufactureSaved> addManufacturer(@RequestBody CategoryOrManufactureSaved categoryOrManufactureSaved){
 
         return this.manufacturerService
-                .saveManufacturer(name)
+                .saveManufacturer(categoryOrManufactureSaved.getName())
                 .map(product -> ResponseEntity.ok().body(product))
                 .orElseGet(() -> ResponseEntity.badRequest().build());
     }

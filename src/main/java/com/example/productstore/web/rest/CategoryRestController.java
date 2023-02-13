@@ -33,10 +33,10 @@ public class CategoryRestController {
 
     @PostMapping("/add")
     @CrossOrigin(origins = "*",allowedHeaders = "*")
-    public ResponseEntity<CategoryOrManufactureSaved> addCategory(@RequestParam String name){
+    public ResponseEntity<CategoryOrManufactureSaved> addCategory(@RequestBody CategoryOrManufactureSaved categoryOrManufactureSaved){
 
         return this.categoryService
-                .saveCategory(name)
+                .saveCategory(categoryOrManufactureSaved.getName())
                 .map(product -> ResponseEntity.ok().body(product))
                 .orElseGet(() -> ResponseEntity.badRequest().build());
     }
