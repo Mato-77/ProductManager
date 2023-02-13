@@ -42,5 +42,5 @@ spec:
                   key: postgre_db
                   name: {{ .Release.Name }}secret
       volumes:
-        - name: volumes-chart-product-psql
-          emptyDir: { }
+          - name: volumes-chart-product-psql
+            emptyDir: { }

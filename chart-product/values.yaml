@@ -11,14 +11,12 @@ spring:
   tag: "latest"
   containerName: "spring"
   app: "spring"
-  name: "spring"
 
 postgre:
   repository: postgres
   pullPolicy: Always
   tag: "13.2-alpine"
-  containerName: "database"
-  name: "postgre"
+  containerName: "postgre"
   app: "postgre"
 
 react:
@@ -26,7 +24,6 @@ react:
   pullPolicy: Always
   tag: "latest"
   containerName: "react"
-  name: "react"
   app: "react"
 
 
@@ -55,22 +52,20 @@ securityContext: {}
   # runAsUser: 1000
 
 spring_service:
-  type: ClusterIP
   port: 8080
+  targetPort: 8080
 
 
 react_service:
-  type: NodePort
   port: 3000
   targetPort: 3000
-  nodePort: 3007
-  selector:
-    app: react
+  nodePort: 30007
 
 
 postgre_service:
-  type: ClusterIP
-  port: 5432
+  port: 5000
+  targetPort: 5432
+
 
 service:
   type: ClusterIP
@@ -120,12 +115,12 @@ affinity: {}
 
 secrets:
   postgre_user: "UHJvZWt0S0lJCg=="
-  postgre_password: "bWF0bwo="
+  postgre_password: "bWF0bw=="
   postgre_db: "c3RvcmU="
 
 configs:
-  backend_url: "react_service"
-  postgre_url: "jdbc:postgresql://postgre_service/store?currentSchema=public"
+  backend_url: "spring-service:8080"
+  postgre_url: "jdbc:postgresql://postgre-service:5000/store?currentSchema=public"
   postgre_ddl: "update"
 
 
