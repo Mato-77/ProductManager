@@ -15,7 +15,7 @@ spring:
 postgre:
   repository: postgres
   pullPolicy: Always
-  tag: "13.2-alpine"
+  tag: "15"
   containerName: "postgre"
   app: "postgre"
 
@@ -114,7 +114,7 @@ tolerations: []
 affinity: {}
 
 secrets:
-  postgre_user: "UHJvZWt0S0lJCg=="
+  postgre_user: "UHJvZWt0S0lJ"
   postgre_password: "bWF0bw=="
   postgre_db: "c3RvcmU="
 
